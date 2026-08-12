@@ -92,6 +92,7 @@ OnlineEventApp/
 ├── run.bat               # Запуск на Windows
 ├── run.sh                # Запуск на Linux/Mac
 ├── README.md             # Документация
+├── image.png            # Диаграмма
 │
 └── Dump/                 # SQL дамп базы данных
     └── ...
