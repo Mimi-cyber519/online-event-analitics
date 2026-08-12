@@ -72,13 +72,12 @@ streamlit run app.py
 3. Выбрать папку `Dump/`
 4. Нажать **Start Import**
 
-**Настройки подключения (в коде):**
-```python
-host="localhost"
-user="root"
-password="password"
-database="OnlineEvent"
-```
+## 🔐 Настройка конфигурации и паролей
+
+1. В корне проекта перейдите в папку `.streamlit/`.
+2. Переименуйте файл `secrets_example.toml` в `secrets.toml`.
+3. Откройте `secrets.toml` и укажите ваши локальные данные для подключения к MySQL.
+
 
 ---
 
