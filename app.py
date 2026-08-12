@@ -7,12 +7,13 @@ st.title("📊 Мониторинг активности участников о
 
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        port=3306,
-        password="password",      
-        database="OnlineEvent"
+        host=st.secrets["mysql"]["host"],
+        user=st.secrets["mysql"]["user"],
+        port=st.secrets["mysql"]["port"],
+        password=st.secrets["mysql"]["password"],
+        database=st.secrets["mysql"]["database"]
     )
+
 
 
 menu = st.sidebar.radio(
@@ -339,10 +340,16 @@ elif menu == "✏️ SQL-запрос":
     st.subheader("Выполнить свой SQL-запрос")
     query = st.text_area("Введите SQL-запрос:", "SELECT * FROM Events LIMIT 10")
     if st.button("Выполнить"):
-        try:
-            conn = get_connection()
-            df = pd.read_sql(query, conn)
-            conn.close()
-            st.dataframe(df, use_container_width=True)
-        except Exception as e:
-            st.error(f"Ошибка: {e}")
+        clean_query = query.strip().lower()
+    
+        if not clean_query.startswith("select"):
+            st.error("Разрешены только запросы на чтение данных (SELECT)!")
+        else:
+            try:
+                conn = get_connection()
+                df = pd.read_sql(query, conn)
+                conn.close()
+                st.dataframe(df, use_container_width=True)
+            except Exception as e:
+                st.error(f"Ошибка: {e}")
+        
