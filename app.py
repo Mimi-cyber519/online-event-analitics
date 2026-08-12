@@ -10,7 +10,7 @@ def get_connection():
         host="localhost",
         user="root",
         port=3306,
-        password="Aa123456",      
+        password="password",      
         database="OnlineEvent"
     )
 
