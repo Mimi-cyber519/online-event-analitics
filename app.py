@@ -19,7 +19,7 @@ def get_connection():
 menu = st.sidebar.radio(
     "Выберите раздел",
     ["📅 Мероприятия", "👥 Участники", "📝 Журнал активности", "📊 Опросы","⏰ Проверки присутствия",
-     "⭐ Отзывы", "🎯 Аналитика", "✏️ SQL-запрос"]
+     "⭐ Отзывы", "🎯 Аналитика"]
 )
 
 
@@ -335,21 +335,3 @@ elif menu == "🎯 Аналитика":
     st.dataframe(df13, use_container_width=True)
     conn.close()
 
-
-elif menu == "✏️ SQL-запрос":
-    st.subheader("Выполнить свой SQL-запрос")
-    query = st.text_area("Введите SQL-запрос:", "SELECT * FROM Events LIMIT 10")
-    if st.button("Выполнить"):
-        clean_query = query.strip().lower()
-    
-        if not clean_query.startswith("select"):
-            st.error("Разрешены только запросы на чтение данных (SELECT)!")
-        else:
-            try:
-                conn = get_connection()
-                df = pd.read_sql(query, conn)
-                conn.close()
-                st.dataframe(df, use_container_width=True)
-            except Exception as e:
-                st.error(f"Ошибка: {e}")
-        
